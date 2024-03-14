@@ -24,4 +24,8 @@ class UserData {
     data['photo'] = this.photo;
     return data;
   }
+
+  String get fullName{
+    return (firstName ?? "") + (lastName ?? "");
+  }
 }

@@ -22,8 +22,8 @@ PreferredSizeWidget get profileBar{
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Oli Ullah', style: TextStyle(fontSize: 16, color: Colors.white),),
-                Text('oli1412001@gmail.com', style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.w400,),),
+                Text(AuthController.userData?.fullName ?? "", style: TextStyle(fontSize: 16, color: Colors.white),),
+                Text(AuthController.userData?.email ?? '', style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.w400,),),
               ],
             ),
           ),
