@@ -17,8 +17,8 @@ class TaskCounterCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
         child: Column(
           children: [
-            Text('$amount', style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
-            Text('$title', style: TextStyle(color: Colors.grey),),
+            Text('$amount', style: const TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
+            Text('$title', style: const TextStyle(color: Colors.grey),),
           ],
         ),
       ),

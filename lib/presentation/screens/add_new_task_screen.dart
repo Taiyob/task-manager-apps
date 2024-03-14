@@ -36,14 +36,14 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 48,),
+                    const SizedBox(height: 48,),
                     Text('Add New Task', style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontSize: 24
                     ),),
-                    SizedBox(height: 16,),
+                    const SizedBox(height: 16,),
                     TextFormField(
                       controller: _titleTEC,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Title',
                       ),
                       validator: (String? value){
@@ -53,11 +53,11 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 8,),
+                    const SizedBox(height: 8,),
                     TextFormField(
                       controller: _descriptionTEC,
                       maxLines: 6,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Description',
                       ),
                       validator: (String? value){
@@ -67,15 +67,15 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 16,),
+                    const SizedBox(height: 16,),
                     SizedBox(width: double.infinity, child: Visibility(
                       visible: _addNewTaskInprogress == false,
-                      replacement: Center(child: CircularProgressIndicator()),
+                      replacement: const Center(child: CircularProgressIndicator()),
                       child: ElevatedButton(onPressed: (){
                         if(_formKey.currentState!.validate()){
                           _addNewTask();
                         }
-                      }, child: Icon(Icons.arrow_circle_right_outlined)),
+                      }, child: const Icon(Icons.arrow_circle_right_outlined)),
                     )),
                   ],
                 ),

@@ -47,19 +47,19 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             children: [
               Visibility(
                   visible: _getAllTaskCountByStatusInprogress == false,
-                  replacement: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  replacement: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: LinearProgressIndicator(),
                   ),
                   child: taskCounterSection),
               Expanded(child: Visibility(
                 visible: _getNewTaskListInprogress == false,
-                replacement: Center(child: CircularProgressIndicator()),
+                replacement: const Center(child: CircularProgressIndicator()),
                 child: RefreshIndicator(
                   onRefresh: () async => _getDataFromApi(),
                   child: Visibility(
                     visible: _taskListWrapper.taskList?.isNotEmpty ?? false,
-                    replacement: EmptyListWidget(),
+                    replacement: const EmptyListWidget(),
                     child: ListView.builder(itemCount: _taskListWrapper.taskList?.length ?? 0, itemBuilder: (context, index){
                       return TaskCard(taskItem: _taskListWrapper.taskList![index],refreshList: (){_getDataFromApi();},);
                     },),
@@ -72,12 +72,12 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: ()async{
           // Todo: Recall the home apis after successfully ad new task/tasks
-          final result = await Navigator.push(context, MaterialPageRoute(builder: (context)=>AddNewTaskScreen(),),);
+          final result = await Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddNewTaskScreen(),),);
           if(result != null && result == true){
             _getDataFromApi();
           }
-        },child: Icon(Icons.add,color: Colors.white,),
-        backgroundColor: AppColors.themeColor,
+        },
+        backgroundColor: AppColors.themeColor,child: const Icon(Icons.add,color: Colors.white,),
       ),
     );
   }
@@ -95,7 +95,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 amount: _countByStatusWrapper.listOfTaskByStatusData![index].sum ?? 0,
                 title: _countByStatusWrapper.listOfTaskByStatusData![index].sId ?? "");
           }, separatorBuilder: (_,__){
-          return SizedBox(width: 8,);
+          return const SizedBox(width: 8,);
         },),
       ),
     );

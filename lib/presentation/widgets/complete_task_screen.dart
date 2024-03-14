@@ -34,14 +34,14 @@ class _CompleteTaskScreenState extends State<CompleteTaskScreen> {
       body: BackgroundWidget(
         child: Visibility(
           visible: _getCompletedTaskListInprogress == false,
-          replacement: Center(child: CircularProgressIndicator()),
+          replacement: const Center(child: CircularProgressIndicator()),
           child: RefreshIndicator(
             onRefresh: ()async{
               _getAllCompletedTaskList();
             },
             child: Visibility(
               visible: _completedTaskListWrapper.taskList?.isNotEmpty ?? false,
-              replacement: EmptyListWidget(),
+              replacement: const EmptyListWidget(),
               child: ListView.builder(itemCount: _completedTaskListWrapper.taskList?.length ?? 0, itemBuilder: (context, index){
                 return TaskCard(taskItem: _completedTaskListWrapper.taskList![index],refreshList: (){_getAllCompletedTaskList();},);
               },),

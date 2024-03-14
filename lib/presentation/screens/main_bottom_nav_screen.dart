@@ -14,7 +14,7 @@ class MainBottomNavScreen extends StatefulWidget {
 
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   int _currentSelectedIndex = 0;
-  final List<Widget> _screens = [NewTaskScreen(),CompleteTaskScreen(),ProgressTaskScreen(),CancelledTaskScreen()];
+  final List<Widget> _screens = [const NewTaskScreen(),const CompleteTaskScreen(),const ProgressTaskScreen(),const CancelledTaskScreen()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +30,7 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
             setState(() {});
           }
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.file_copy_outlined), label: 'New Task'),
           BottomNavigationBarItem(icon: Icon(Icons.done_all), label: 'Completed'),
           BottomNavigationBarItem(icon: Icon(Icons.abc_rounded), label: 'Progress'),

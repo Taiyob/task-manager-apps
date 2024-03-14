@@ -27,32 +27,32 @@ class _TaskCardState extends State<TaskCard> {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
-      margin: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.taskItem.title ?? "",style: TextStyle(fontWeight: FontWeight.bold),),
-            Text(widget.taskItem.description ?? "",style: TextStyle(),),
-            Text('Date ${widget.taskItem.createdDate}',style: TextStyle(),),
+            Text(widget.taskItem.title ?? "",style: const TextStyle(fontWeight: FontWeight.bold),),
+            Text(widget.taskItem.description ?? "",style: const TextStyle(),),
+            Text('Date ${widget.taskItem.createdDate}',style: const TextStyle(),),
             Row(
               children: [
                 Chip(label: Text(widget.taskItem.status ?? ""),),
-                Spacer(),
+                const Spacer(),
                 Visibility(
                   visible: _updateTaskStatusInprogress == false,
-                  replacement: CircularProgressIndicator(),
+                  replacement: const CircularProgressIndicator(),
                   child: IconButton(onPressed: ()async{
                     _showUpdateStatusDialogue(widget.taskItem.sId!);
-                  }, icon: Icon(Icons.edit),),
+                  }, icon: const Icon(Icons.edit),),
                 ),
                 Visibility(
                   visible: _deleteTaskInprogress == false,
-                  replacement: CircularProgressIndicator(),
+                  replacement: const CircularProgressIndicator(),
                   child: IconButton(onPressed: ()async{
                     _deleteTaskById(widget.taskItem.sId!);
-                  }, icon: Icon(Icons.delete),),
+                  }, icon: const Icon(Icons.delete),),
                 ),
               ],
             ),
@@ -65,32 +65,32 @@ class _TaskCardState extends State<TaskCard> {
   void _showUpdateStatusDialogue(String id){
     showDialog(context: context, builder: (context){
       return AlertDialog(
-        title: Text('Select Status'),
+        title: const Text('Select Status'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ListTile(title: Text('New'),trailing: _isCurrentStatus('New') ? Icon(Icons.check) : null, onTap: (){
+            ListTile(title: const Text('New'),trailing: _isCurrentStatus('New') ? const Icon(Icons.check) : null, onTap: (){
               if(_isCurrentStatus('New')){
                 return;
               }
               _updateTaskById(id, 'New');
               Navigator.pop(context);
             },),
-            ListTile(title: Text('Completed'),trailing: _isCurrentStatus('Completed') ? Icon(Icons.check) : null,onTap: ()async{
+            ListTile(title: const Text('Completed'),trailing: _isCurrentStatus('Completed') ? const Icon(Icons.check) : null,onTap: ()async{
               if(_isCurrentStatus('Completed')){
                 return;
               }
               _updateTaskById(id, 'Completed');
               Navigator.pop(context);
             }),
-            ListTile(title: Text('Progress'),trailing: _isCurrentStatus('Progress') ? Icon(Icons.check) : null,onTap: ()async{
+            ListTile(title: const Text('Progress'),trailing: _isCurrentStatus('Progress') ? const Icon(Icons.check) : null,onTap: ()async{
               if(_isCurrentStatus('Progress')){
                 return;
               }
               _updateTaskById(id, 'Progress');
               Navigator.pop(context);
             }),
-            ListTile(title: Text('Cancelled'),trailing: _isCurrentStatus('Cancelled') ? Icon(Icons.check) : null,onTap: ()async{
+            ListTile(title: const Text('Cancelled'),trailing: _isCurrentStatus('Cancelled') ? const Icon(Icons.check) : null,onTap: ()async{
               if(_isCurrentStatus('Cancelled')){
                 return;
               }
