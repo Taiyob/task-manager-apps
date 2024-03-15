@@ -23,6 +23,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailTEC = TextEditingController();
   final TextEditingController _passwordTEC = TextEditingController();
   bool _isLoginInprogress = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
