@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:task_manager_application/app.dart';
@@ -9,6 +10,17 @@ import 'package:task_manager_application/presentation/screens/update_profile_scr
 import '../utils/app_colors.dart';
 
 PreferredSizeWidget get profileBar {
+  String? photoBase64 = AuthController.userData?.photo;
+  MemoryImage? avatarImage;
+  try {
+    if (photoBase64 != null) {
+      List<int> photoBytes = base64Decode(photoBase64);
+      Uint8List uint8List = Uint8List.fromList(photoBytes);
+      avatarImage = MemoryImage(uint8List);
+    }
+  } catch (e) {
+    print('Error decoding Base64 image: $e');
+  }
   return AppBar(
     automaticallyImplyLeading: false,
     backgroundColor: AppColors.themeColor,
@@ -24,9 +36,10 @@ PreferredSizeWidget get profileBar {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundImage: MemoryImage(
-              base64Decode(AuthController.userData!.photo!),
-            ),
+            // backgroundImage: MemoryImage(
+            //   base64Decode(AuthController.userData!.photo!),
+            // ),
+            backgroundImage: avatarImage,
           ),
           const SizedBox(
             width: 12,
