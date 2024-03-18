@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_application/data/services/network_caller.dart';
+import 'package:task_manager_application/data/utilities/urls.dart';
+import 'package:task_manager_application/presentation/controllers/auth_controller.dart';
 import 'package:task_manager_application/presentation/screens/auth/pin_verification_screen.dart';
 
 import '../../widgets/background_widget.dart';
+import '../../widgets/snack_bar_message_widget.dart';
 
 
 class EmailVerificationScreen extends StatefulWidget {
@@ -14,6 +18,7 @@ class EmailVerificationScreen extends StatefulWidget {
 class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailTEC = TextEditingController();
+  bool _getEmailVerificationInprogress = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +48,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   ),
                   SizedBox(height: 16,),
                   SizedBox(width: double.infinity, child: ElevatedButton(onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>PinVerificationScreen(),),);
+                    _verifyEmailRequest(_emailTEC.text.trim());
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>PinVerificationScreen(email: _emailTEC.text.trim()),),);
                   }, child: Icon(Icons.arrow_circle_right_outlined))),
                   SizedBox(height: 32,),
                   Row(
@@ -62,6 +68,25 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         ),
       ),
     );
+  }
+
+  Future<bool> _verifyEmailRequest(Email) async{
+    _getEmailVerificationInprogress = true;
+    setState(() {});
+    final response = await NetworkCaller.getRequest(Urls.emailVerification(Email));
+    if(response.isSuccess){
+      await WriteEmailVerification(Email);
+      showSnackBarMessageWidget(context, response.errorMessage ?? "Email verification has been successed");
+      return true;
+    }else{
+      _getEmailVerificationInprogress = false;
+      setState(() {});
+      if(mounted) {
+        showSnackBarMessageWidget(context,
+            response.errorMessage ?? "Email verification has been failed");
+      }
+      return false;
+    }
   }
 
   @override
