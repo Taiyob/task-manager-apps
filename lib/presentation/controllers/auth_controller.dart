@@ -51,3 +51,19 @@ class AuthController {
     await sharedPreferences.clear();
   }
 }
+
+Future<void> WriteEmailVerification(Email) async{
+  final emailPref = await SharedPreferences.getInstance();
+    await emailPref.setString('EmailVerification', Email);
+}
+
+Future<void> WriteOTPVerification(OTP) async{
+  final otpPref = await SharedPreferences.getInstance();
+  await otpPref.setString('OTPVerification', OTP);
+}
+
+Future<String?> ReadUserData(Key) async{
+  final userDataPref = await SharedPreferences.getInstance();
+  String? myData = await userDataPref.getString(Key);
+  return myData;
+}

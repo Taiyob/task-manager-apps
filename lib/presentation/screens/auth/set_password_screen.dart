@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_application/data/services/network_caller.dart';
+import 'package:task_manager_application/data/utilities/urls.dart';
 import 'package:task_manager_application/presentation/screens/auth/sign_in_screen.dart';
 
 import '../../widgets/background_widget.dart';
+import '../../widgets/snack_bar_message_widget.dart';
 
 
 class SetPasswordScreen extends StatefulWidget {
-  const SetPasswordScreen({super.key});
+  const SetPasswordScreen({super.key, required this.email, required this.otp});
+
+  final email;
+  final otp;
 
   @override
   State<SetPasswordScreen> createState() => _SetPasswordScreenState();
@@ -15,6 +21,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _passwordTEC = TextEditingController();
   final TextEditingController _confirmPasswordTEC = TextEditingController();
+  bool _setPasswordInprogress = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +62,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                   ),
                   SizedBox(height: 16,),
                   SizedBox(width: double.infinity, child: ElevatedButton(onPressed: (){
-
+                    _setPasswordRequest();
                   }, child: Text('Confirm'))),
                   SizedBox(height: 32,),
                   Row(
@@ -74,6 +81,35 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
         ),
       ),
     );
+  }
+
+  Future<bool> _setPasswordRequest() async{
+    _setPasswordInprogress = true;
+    setState(() {});
+    Map<String, dynamic> inputParams = {
+      "password": _passwordTEC.text.trim(),
+      "email" : widget.email,
+      "otp" : widget.otp,
+    };
+    final response = await NetworkCaller.postRequest(Urls.passwordSet, inputParams);
+    _setPasswordInprogress = false;
+    setState(() {});
+    if (response.isSuccess) {
+      if (mounted) {
+        showSnackBarMessageWidget(
+            context, 'Password set successfully! Please Login');
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const SignInScreen(),), (route) => false);
+        return true;
+      }
+      return false;
+    } else {
+      if (mounted) {
+        showSnackBarMessageWidget(
+            context, 'Password set Failed, Try Again', true);
+        return false;
+      }
+      return false;
+    }
   }
 
   @override
